@@ -1,0 +1,15 @@
+adminUser: admin
+
+adminPassword: DevOps@123
+
+service:
+  type: ClusterIP
+
+persistence:
+  enabled: true
+  size: 2Gi
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi

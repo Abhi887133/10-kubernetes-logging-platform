@@ -1,0 +1,4 @@
+NAME                        STATUS   ROLES           AGE     VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                         KERNEL-VERSION                      CONTAINER-RUNTIME
+dev-cluster-control-plane   Ready    control-plane   4d23h   v1.30.0   172.18.0.3    <none>        Debian GNU/Linux 12 (bookworm)   6.18.33.2-microsoft-standard-WSL2   containerd://1.7.15
+dev-cluster-worker          Ready    <none>          4d23h   v1.30.0   172.18.0.4    <none>        Debian GNU/Linux 12 (bookworm)   6.18.33.2-microsoft-standard-WSL2   containerd://1.7.15
+dev-cluster-worker2         Ready    <none>          4d23h   v1.30.0   172.18.0.2    <none>        Debian GNU/Linux 12 (bookworm)   6.18.33.2-microsoft-standard-WSL2   containerd://1.7.15

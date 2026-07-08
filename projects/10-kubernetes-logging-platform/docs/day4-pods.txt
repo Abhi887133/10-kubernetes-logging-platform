@@ -1,0 +1,8 @@
+NAME                       READY   STATUS    RESTARTS      AGE
+grafana-6574494695-jtc6j   1/1     Running   2 (16m ago)   24m
+loki-0                     2/2     Running   0             43m
+loki-canary-5j9rb          1/1     Running   0             43m
+loki-canary-nm9p2          1/1     Running   0             43m
+promtail-4v6nr             1/1     Running   0             32m
+promtail-7x5gt             1/1     Running   0             32m
+promtail-hk5cv             1/1     Running   0             32m

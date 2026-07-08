@@ -1,0 +1,11 @@
+NAME                 STATUS   AGE
+argo-rollouts        Active   27h
+argocd               Active   30h
+default              Active   4d23h
+ingress-nginx        Active   23h
+kube-node-lease      Active   4d23h
+kube-public          Active   4d23h
+kube-system          Active   4d23h
+local-path-storage   Active   4d23h
+logging              Active   53s
+staging              Active   27h

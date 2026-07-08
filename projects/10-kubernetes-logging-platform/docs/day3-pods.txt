@@ -1,0 +1,7 @@
+NAME                READY   STATUS    RESTARTS   AGE    IP            NODE                        NOMINATED NODE   READINESS GATES
+loki-0              2/2     Running   0          14m    10.244.2.11   dev-cluster-worker2         <none>           <none>
+loki-canary-5j9rb   1/1     Running   0          14m    10.244.2.9    dev-cluster-worker2         <none>           <none>
+loki-canary-nm9p2   1/1     Running   0          14m    10.244.1.9    dev-cluster-worker          <none>           <none>
+promtail-4v6nr      1/1     Running   0          4m3s   10.244.0.5    dev-cluster-control-plane   <none>           <none>
+promtail-7x5gt      1/1     Running   0          4m3s   10.244.2.12   dev-cluster-worker2         <none>           <none>
+promtail-hk5cv      1/1     Running   0          4m3s   10.244.1.10   dev-cluster-worker          <none>           <none>

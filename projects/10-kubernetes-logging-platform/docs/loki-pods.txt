@@ -1,0 +1,4 @@
+NAME                READY   STATUS    RESTARTS   AGE     IP            NODE                  NOMINATED NODE   READINESS GATES
+loki-0              2/2     Running   0          5m47s   10.244.2.11   dev-cluster-worker2   <none>           <none>
+loki-canary-5j9rb   1/1     Running   0          5m48s   10.244.2.9    dev-cluster-worker2   <none>           <none>
+loki-canary-nm9p2   1/1     Running   0          5m48s   10.244.1.9    dev-cluster-worker    <none>           <none>

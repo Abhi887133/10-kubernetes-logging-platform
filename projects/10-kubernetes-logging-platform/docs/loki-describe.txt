@@ -1,0 +1,228 @@
+Name:             loki-0
+Namespace:        logging
+Priority:         0
+Service Account:  loki
+Node:             dev-cluster-worker2/172.18.0.2
+Start Time:       Wed, 08 Jul 2026 17:03:08 +0000
+Labels:           app.kubernetes.io/component=single-binary
+                  app.kubernetes.io/instance=loki
+                  app.kubernetes.io/name=loki
+                  app.kubernetes.io/part-of=memberlist
+                  apps.kubernetes.io/pod-index=0
+                  controller-revision-hash=loki-55bdc574d8
+                  statefulset.kubernetes.io/pod-name=loki-0
+Annotations:      checksum/config: cf56e0045203f711351923274770fdb9c79e59e39412e434889b81bc0ebb50ca
+                  kubectl.kubernetes.io/default-container: loki
+                  storage/size: 10Gi
+Status:           Running
+IP:               10.244.2.11
+IPs:
+  IP:           10.244.2.11
+Controlled By:  StatefulSet/loki
+Containers:
+  loki:
+    Container ID:  containerd://46b7c723748f0e457d802f182daf548da9c16e364fc03b78a254a8dc68df95d3
+    Image:         docker.io/grafana/loki:3.6.7
+    Image ID:      docker.io/grafana/loki@sha256:3c8fd3570dd9219951a60d3f919c7f31923d10baee578b77bc26c4a0b32d092d
+    Ports:         3100/TCP (http-metrics), 9095/TCP (grpc), 7946/TCP (http-memberlist)
+    Host Ports:    0/TCP (http-metrics), 0/TCP (grpc), 0/TCP (http-memberlist)
+    Args:
+      -config.file=/etc/loki/config/config.yaml
+      -target=all
+    State:          Running
+      Started:      Wed, 08 Jul 2026 17:03:53 +0000
+    Ready:          True
+    Restart Count:  0
+    Readiness:      http-get http://:http-metrics/ready delay=15s timeout=1s period=10s #success=1 #failure=3
+    Environment:    <none>
+    Mounts:
+      /etc/loki/config from config (rw)
+      /etc/loki/runtime-config from runtime-config (rw)
+      /rules from sc-rules-volume (rw)
+      /tmp from tmp (rw)
+      /var/loki from storage (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-vprjj (ro)
+  loki-sc-rules:
+    Container ID:   containerd://5e92d8817117eef290828b320ac0c14d0e87c43e0c6df9909e30a804d13c2f91
+    Image:          docker.io/kiwigrid/k8s-sidecar:2.5.0
+    Image ID:       docker.io/kiwigrid/k8s-sidecar@sha256:a6b3f707f883108376514489a94d6629109a327b2978e1d826cd104c4ca436df
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Wed, 08 Jul 2026 17:04:29 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:
+      METHOD:                WATCH
+      LABEL:                 loki_rule
+      FOLDER:                /rules
+      RESOURCE:              both
+      WATCH_SERVER_TIMEOUT:  60
+      WATCH_CLIENT_TIMEOUT:  60
+      LOG_LEVEL:             INFO
+    Mounts:
+      /rules from sc-rules-volume (rw)
+      /tmp from tmp (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-vprjj (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  storage:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  storage-loki-0
+    ReadOnly:   false
+  tmp:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+  config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      loki
+    Optional:  false
+  runtime-config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      loki-runtime
+    Optional:  false
+  sc-rules-volume:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+  kube-api-access-vprjj:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+
+
+Name:             loki-canary-5j9rb
+Namespace:        logging
+Priority:         0
+Service Account:  loki-canary
+Node:             dev-cluster-worker2/172.18.0.2
+Start Time:       Wed, 08 Jul 2026 17:02:26 +0000
+Labels:           app.kubernetes.io/component=canary
+                  app.kubernetes.io/instance=loki
+                  app.kubernetes.io/name=loki
+                  controller-revision-hash=6ff9c9664b
+                  pod-template-generation=1
+Annotations:      <none>
+Status:           Running
+IP:               10.244.2.9
+IPs:
+  IP:           10.244.2.9
+Controlled By:  DaemonSet/loki-canary
+Containers:
+  loki-canary:
+    Container ID:  containerd://43a31d5723c3cfa64b749a7408d0cc177506a254cab203ad5ff8f03c4b5d6f8c
+    Image:         docker.io/grafana/loki-canary:3.6.7
+    Image ID:      docker.io/grafana/loki-canary@sha256:0dac7d5cb383adb8d3723676a70ed0c65b582e636846f4ce48703556dd509ad1
+    Port:          3500/TCP (http-metrics)
+    Host Port:     0/TCP (http-metrics)
+    Args:
+      -addr=loki.logging.svc.cluster.local.:3100
+      -labelname=pod
+      -labelvalue=$(POD_NAME)
+      -push=true
+    State:          Running
+      Started:      Wed, 08 Jul 2026 17:03:25 +0000
+    Ready:          True
+    Restart Count:  0
+    Readiness:      http-get http://:http-metrics/metrics delay=15s timeout=1s period=10s #success=1 #failure=3
+    Environment:
+      POD_NAME:  loki-canary-5j9rb (v1:metadata.name)
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-5gtvr (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-5gtvr:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/disk-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/memory-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/not-ready:NoExecute op=Exists
+                             node.kubernetes.io/pid-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/unreachable:NoExecute op=Exists
+                             node.kubernetes.io/unschedulable:NoSchedule op=Exists
+
+
+Name:             loki-canary-nm9p2
+Namespace:        logging
+Priority:         0
+Service Account:  loki-canary
+Node:             dev-cluster-worker/172.18.0.4
+Start Time:       Wed, 08 Jul 2026 17:02:25 +0000
+Labels:           app.kubernetes.io/component=canary
+                  app.kubernetes.io/instance=loki
+                  app.kubernetes.io/name=loki
+                  controller-revision-hash=6ff9c9664b
+                  pod-template-generation=1
+Annotations:      <none>
+Status:           Running
+IP:               10.244.1.9
+IPs:
+  IP:           10.244.1.9
+Controlled By:  DaemonSet/loki-canary
+Containers:
+  loki-canary:
+    Container ID:  containerd://39ff85799b6fd314ca3cfc0a71e8acccd9f7744d0357880326fef2b3ce36ff2a
+    Image:         docker.io/grafana/loki-canary:3.6.7
+    Image ID:      docker.io/grafana/loki-canary@sha256:0dac7d5cb383adb8d3723676a70ed0c65b582e636846f4ce48703556dd509ad1
+    Port:          3500/TCP (http-metrics)
+    Host Port:     0/TCP (http-metrics)
+    Args:
+      -addr=loki.logging.svc.cluster.local.:3100
+      -labelname=pod
+      -labelvalue=$(POD_NAME)
+      -push=true
+    State:          Running
+      Started:      Wed, 08 Jul 2026 17:03:22 +0000
+    Ready:          True
+    Restart Count:  0
+    Readiness:      http-get http://:http-metrics/metrics delay=15s timeout=1s period=10s #success=1 #failure=3
+    Environment:
+      POD_NAME:  loki-canary-nm9p2 (v1:metadata.name)
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-dlsjd (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-dlsjd:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/disk-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/memory-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/not-ready:NoExecute op=Exists
+                             node.kubernetes.io/pid-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/unreachable:NoExecute op=Exists
+                             node.kubernetes.io/unschedulable:NoSchedule op=Exists

@@ -1,0 +1,6 @@
+NAME              TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)             AGE
+grafana           ClusterIP   10.96.26.187   <none>        80/TCP              24m
+loki              ClusterIP   10.96.77.25    <none>        3100/TCP,9095/TCP   43m
+loki-canary       ClusterIP   10.96.24.71    <none>        3500/TCP            43m
+loki-headless     ClusterIP   None           <none>        3100/TCP            43m
+loki-memberlist   ClusterIP   None           <none>        7946/TCP            43m
